@@ -589,3 +589,96 @@ let repository = [
     },
   },
 ];
+
+let gridSelector = document.querySelector(".heroes__grid");
+
+for (let index = 0; index < repository.length; index++) {
+  const element = repository[index];
+  // create div that has .heroes
+  let heroes = document.createElement("div");
+  let btnHolder = document.createElement("div");
+  let h3 = document.createElement("h3");
+  let paragraph = document.createElement("p");
+  let heroImage = document.createElement("img");
+  let showBtn = document.createElement("button");
+  let delBtn = document.createElement("button");
+
+  heroImage.setAttribute("src", element.images.md);
+  h3.textContent = element.name;
+  paragraph.textContent = element.biography.fullName;
+  showBtn.textContent = "Show lah!";
+  delBtn.textContent = "Delete lah!";
+  heroes.setAttribute("id", element.id);
+  //class adding part
+  heroImage.classList.add("img-responsive");
+  heroes.classList.add("heroes");
+  btnHolder.classList.add("btnHolder");
+  showBtn.classList.add("showBtn");
+  delBtn.classList.add("delBtn");
+
+  //append list
+  btnHolder.appendChild(showBtn);
+  btnHolder.appendChild(delBtn);
+
+  heroes.appendChild(heroImage);
+  heroes.appendChild(h3);
+  heroes.appendChild(paragraph);
+  heroes.appendChild(btnHolder);
+  gridSelector.appendChild(heroes);
+
+  showBtn.addEventListener("click", function (e) {
+    // find the current id from the parent of the parent
+    let currentId = e.target.parentNode.parentNode.id;
+
+    // let item = repository.find(function (element) {
+    //   return element.id == currentId;
+    // });
+
+    //find in the repository array the element which matches the ID
+    let item = repository.find((element) => element.id == currentId);
+    console.log(item);
+
+    /* Option 1 */
+    let modalContent = document.querySelector("#modalContent");
+    modalContent.innerHTML = ""; //empty container
+
+    let $divImageContainer = document.createElement("div");
+    let $superHeroImage = document.createElement("img");
+    let $dataContainer = document.createElement("div");
+    let $h3 = document.createElement("h3");
+    let $h4 = document.createElement("h4");
+
+    $superHeroImage.setAttribute("src", item.images.md);
+    $superHeroImage.classList.add("image-responsive");
+    $h3.textContent = item.name;
+    $h4.textContent = item.biography.fullName;
+
+    $divImageContainer.appendChild($superHeroImage);
+    $dataContainer.appendChild($h3);
+    $dataContainer.appendChild($h4);
+    modalContent.appendChild($divImageContainer);
+    modalContent.appendChild($dataContainer);
+
+    /* Option 2 */
+    // let html = `<div>
+    //               <img src="${item.images.md}" />
+    //             </div>
+    //             <div>
+    //               <h3>${item.name}</h3>
+    //               <h4>${item.biography.fullName}</h4>
+    //             </div>`;
+    // document.querySelector("#modalContent").innerHTML = html;
+
+    // gridSelector.innerHTML = html;
+    document.querySelector(".modal").style.display = "block";
+
+    document.querySelector(".close").addEventListener("click", function (e) {
+      document.querySelector(".modal").style.display = "none";
+    });
+  });
+
+  delBtn.addEventListener("click", function (e) {
+    e.target.parentNode.parentNode.remove();
+  });
+  //append this div to gridSelector
+}
