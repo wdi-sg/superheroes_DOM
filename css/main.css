@@ -20,21 +20,22 @@ body {
 }
 .btnHolder {
   display: flex;
+  justify-content: space-between;
 }
 .showBtn,
 .delBtn {
   display: block;
-  width: 50%;
-  border-radius: 10px;
+  width: 48%;
+  border-radius: 5px;
   padding: 10px 0;
 }
 
 .showBtn {
-  background-color: yellow;
+  background-color: green;
 }
 
 .delBtn {
-  background-color: orange;
+  background-color: red;
 }
 
 .img-responsive {
@@ -83,7 +84,17 @@ body {
 #modalContent > div:nth-child(2) {
   padding: 0 10px;
 }
-/* 
-@media screen (width: 300px) {
 
-} */
+@media screen and (max-width: 400px) {
+  .heroes__grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .heroes__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+}
